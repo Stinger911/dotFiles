@@ -32,7 +32,6 @@
     # - defx
     filemanager = "vimfiler"
     enable_vimfiler_gitstatus = 1
-    enable_vimfiler_filetypeicon = 1
     enable_vimfiler_welcome = 0
 
 # Enable autocomplete layer
