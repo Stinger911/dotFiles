@@ -1,9 +1,8 @@
 "=============================================================================
-" dark_powered.toml --- dark powered configuration example for SpaceVim
-" Copyright (c) 2016-2017 Wang Shidong & Contributors
-" Author: Wang Shidong < wsdjeg at 163.com >
-" URL: https://spacevim.org
-" License: GPLv3
+" stinger.vim -- set of custom initializations for SpaceVim
+" Copy this file to ~/.SpaceVim/autoload directory
+" Copyright (c) 2019 Andrew "Stinger" Abramov
+" Author: Andrew "Stinger" Abramov stinger911 <at> gmail.com
 "=============================================================================
 function! stinger#Init ()
 endfunction
