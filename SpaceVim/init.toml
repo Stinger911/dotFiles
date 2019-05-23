@@ -33,8 +33,10 @@
     filemanager = "vimfiler"
     enable_vimfiler_gitstatus = 1
     enable_vimfiler_welcome = 0
+    # custom inits
+    bootstrap_before = "stinger#set_maps"
 
-# Enable autocomplete layer
+# Enable autecomplete layer
 [[layers]]
   name = 'autocomplete'
   auto-completion-return-key-behavior = "complete"
@@ -82,6 +84,11 @@
   name = "junegunn/seoul256.vim"
   merged = 0
  
+#[[custom_plugins]]
+#  name = "tpope/vim-fugitive"
+#  merged = 0
+# 
+#[[custom_plugins]]
 #[[custom_plugins]]
 #  name = "kristijanhusak/defx-git"
 # 
