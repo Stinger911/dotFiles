@@ -46,6 +46,7 @@
   name = 'shell'
   default_position = 'top'
   default_height = 30
+  default_shell = "VimShell"
 
 [[layers]]
  name = 'VersionControl'
