@@ -1,10 +1,10 @@
 #!/bin/sh
 
-apk add git tmux neovim
+apk add git tmux neovim openssh-client python3 py3-pip zsh curl
 
-# sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-cat <<EOP >> ~/.profile
+cat <<EOP > ~/.profile
 alias ll="ls -Al"
 alias vim="neovim"
 alias vi="neovim"
