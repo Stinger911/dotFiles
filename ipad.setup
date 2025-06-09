@@ -1,0 +1,12 @@
+#!/bin/sh
+
+apk add git tmux neovim
+
+# sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+cat <<EOP >> ~/.profile
+alias ll="ls -Al"
+alias vim="neovim"
+alias vi="neovim"
+
+EOP
