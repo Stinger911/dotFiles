@@ -1,12 +1,16 @@
 #!/bin/sh
 
-apk add git tmux neovim openssh-client python3 py3-pip zsh curl
+apk add git tmux neovim openssh-client python3 py3-pip bash curl
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+curl -s https://ohmyposh.dev/install.sh | bash -s
 
 cat <<EOP > ~/.profile
 alias ll="ls -Al"
-alias vim="neovim"
-alias vi="neovim"
+alias vim="nvim"
+alias vi="nvim"
 
+# export TERM_FONT=/root/fonts/0xProtoNerdFontMono-Bold.ttf
+export EDITOR=nvim
+export PATH=$PATH:/root/.local/bin
+. /root/.cache/oh-my-posh/init.*.sh
 EOP
