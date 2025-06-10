@@ -1,16 +1,22 @@
 #!/bin/sh
+_DIR=$( cd -- "$( dirname -- "${0}" )" &> /dev/null && pwd )
 
-apk add git tmux neovim openssh-client python3 py3-pip bash curl
+apk add git tmux neovim openssh-client python3 py3-pip bash curl helix helix-tree-sitter-vendor
+
+export PATH=$PATH:/root/.local/bin
 
 curl -s https://ohmyposh.dev/install.sh | bash -s
+oh-my-posh init bash --config /root/.cache/oh-my-posh/themes/spaceship.omp.json
 
-cat <<EOP > ~/.profile
-alias ll="ls -Al"
-alias vim="nvim"
-alias vi="nvim"
+cp /etc/passwd /etc/passwd.bak
 
-# export TERM_FONT=/root/fonts/0xProtoNerdFontMono-Bold.ttf
-export EDITOR=nvim
-export PATH=$PATH:/root/.local/bin
-. /root/.cache/oh-my-posh/init.*.sh
-EOP
+cat /etc/passwd | sed -E "s|^root(.*)/bin/sh|root\1/bin/bash|" >/etc/passwd
+
+diff /etc/passwd /etc/passwd.bak
+
+read -p "Username: " USERNM; echo; scp $USERNM@s2.lab18.net:~/.ssh/id_rsa ~/.ssh/
+
+cp $_DIR/profile.ipad.sh ~/.profile
+
+cp $_DIR/config.toml ~/.config/helix/config.toml
+
