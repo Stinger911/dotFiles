@@ -1,6 +1,11 @@
 #!/bin/sh
 _DIR=$( cd -- "$( dirname -- "${0}" )" &> /dev/null && pwd )
 
+cat <<EOR >> /etc/apk/repositories
+https://dl-cdn.alpinelinux.org/alpine/v3.14/main
+https://dl-cdn.alpinelinux.org/alpine/v3.14/community
+EOR
+apk update
 apk add git tmux neovim openssh-client python3 py3-pip bash curl
 
 export PATH=$PATH:/root/.local/bin
