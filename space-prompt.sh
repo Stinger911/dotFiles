@@ -1,10 +1,16 @@
 #!/bin/bash
 # ANSI color codes
 C_RESET="\[\033[0m\]"
+C_GREEN="\[\033[0;31m\]"
 C_YELLOW="\[\033[0;33m\]"
 C_CYAN="\[\033[0;36m\]"
 C_MAGENTA="\[\033[0;35m\]"
-
+C_UP="↑"
+C_DOWN="↓"
+C_BOTH="↕︎"
+C_CLEAN="≡"
+C_BRANCH=""
+C_PROMPT="❯"
 # Function to get Git branch name and state
 _git_branch_info() {
     local branch_name=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
@@ -18,20 +24,20 @@ _git_branch_info() {
 
     if [[ "$upstream_info" =~ \[ahead\ ([0-9]+)\] ]]; then
         local ahead_count=${BASH_REMATCH[1]}
-        branch_state="up $ahead_count"
+        branch_state="${C_UP}$ahead_count"
     fi
 
     if [[ "$upstream_info" =~ \[behind\ ([0-9]+)\] ]]; then
         local behind_count=${BASH_REMATCH[1]}
         if [ -n "$branch_state" ]; then
-            branch_state="both ($ahead_count/$behind_count)"
+            branch_state="${C_BOTH}($ahead_count/$behind_count)"
         else
-            branch_state="down $behind_count"
+            branch_state="${C_DOWN}$behind_count"
         fi
     fi
 
     if [ -z "$branch_state" ]; then
-        branch_state="clean"
+        branch_state="${C_CLEAN}"
     fi
 
     echo "$branch_name $branch_state"
@@ -134,7 +140,7 @@ _set_git_prompt() {
     prompt_str+="${C_CYAN}${tilde_based_dir}${C_RESET}"
 
     if [ -n "$branch_name" ]; then
-        prompt_str+=" on ${C_MAGENTA}\xee\x82\xa0 ${branch_name}"
+        prompt_str+=" on ${C_MAGENTA}${C_BRANCH} ${branch_name}"
         if [ -n "$branch_state" ]; then
             prompt_str+=" (${branch_state})"
         fi
@@ -149,7 +155,7 @@ _set_git_prompt() {
     fi
     prompt_str+="${C_RESET}"
 
-    export PS1="${prompt_str}\n\$ " # Add a newline and then the traditional $ or #
+    export PS1="${prompt_str}\n\${C_GREEN}${C_PROMPT}${C_RESET} " # Add a newline and then the traditional $ or #
 }
 
 # Set PROMPT_COMMAND to execute _set_git_prompt before each prompt

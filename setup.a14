@@ -20,7 +20,7 @@ read -p "apply? [y/n] " ANSW; [ $ANSW = "y" ] && cp /etc/passwd.new /etc/passwd
 
 rm -f /etc/passwd.new /etc/passwd.bak
 
-read -p "Username: " USERNM; echo; scp $USERNM@s2.lab18.net:~/.ssh/id_rsa ~/.ssh/
+read -p "Username: " USERNM; echo; scp $USERNM@s2.lab18.net:~/.ssh/id_rsa ~/.ssh/id_rsa
 
 mkdir -p /root/.cache/oh-my-posh
 cp $_DIR/space-prompt.sh /root/.cache/oh-my-posh/init.0.sh
