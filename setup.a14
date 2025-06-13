@@ -27,5 +27,5 @@ rm -f /etc/passwd.new /etc/passwd.bak
 mkdir -p /root/.cache/oh-my-posh
 cp $_DIR/space-prompt.sh /root/.cache/oh-my-posh/init.0.sh
 cp $_DIR/profile.ipad.sh ~/.profile
-cat $_DIR/profile.ipad.sh | sed -E "s/export EDITOR=hx/export EDITOR=nvim/" ~/.profile
+cat $_DIR/profile.ipad.sh | sed -E "s/export EDITOR=hx/export EDITOR=nvim/" > ~/.profile
 
