@@ -1,10 +1,10 @@
 #!/bin/bash
 # ANSI color codes
 C_RESET="\[\033[0m\]"
-C_GREEN="\[\033[0;31m\]"
-C_YELLOW="\[\033[0;33m\]"
-C_CYAN="\[\033[0;36m\]"
-C_MAGENTA="\[\033[0;35m\]"
+C_GREEN="\[\033[0;92m\]"
+C_YELLOW="\[\033[0;93m\]"
+C_CYAN="\[\033[0;96m\]"
+C_MAGENTA="\[\033[0;95m\]"
 C_UP="↑"
 C_DOWN="↓"
 C_BOTH="↕︎"
@@ -132,6 +132,12 @@ _set_git_prompt() {
         elif [[ "$git_status" =~ (working:.*) ]]; then
             working_status="${BASH_REMATCH[1]}"
         fi
+        if [[ "$working_status" =~ working:\ (.*) ]]; then
+            working_status="*[\1]"
+        fi
+        if [[ "$staged_status" =~ staged:\ (.*) ]]; then
+            staged_status="%[\1]"
+        fi
     fi
 
     # Construct the prompt string with colors
@@ -155,7 +161,7 @@ _set_git_prompt() {
     fi
     prompt_str+="${C_RESET}"
 
-    export PS1="${prompt_str}\n\${C_GREEN}${C_PROMPT}${C_RESET} " # Add a newline and then the traditional $ or #
+    export PS1="${prompt_str}\n${C_GREEN}${C_PROMPT}${C_RESET} " # Add a newline and then the traditional $ or #
 }
 
 # Set PROMPT_COMMAND to execute _set_git_prompt before each prompt
