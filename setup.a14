@@ -23,6 +23,6 @@ rm -f /etc/passwd.new /etc/passwd.bak
 read -p "Username: " USERNM; echo; scp $USERNM@s2.lab18.net:~/.ssh/id_rsa ~/.ssh/
 
 mkdir -p /root/.cache/oh-my-posh
-touch /root/.cache/oh-my-posh/init.0.sh
+cp $_DIR/space-prompt.sh /root/.cache/oh-my-posh/init.0.sh
 cp $_DIR/profile.ipad.sh ~/.profile
 
