@@ -133,10 +133,10 @@ _set_git_prompt() {
             working_status="${BASH_REMATCH[1]}"
         fi
         if [[ "$working_status" =~ working:\ (.*) ]]; then
-            working_status="*[\1]"
+            working_status="*[${BASH_REMATCH[1]}]"
         fi
         if [[ "$staged_status" =~ staged:\ (.*) ]]; then
-            staged_status="%[\1]"
+            staged_status="%[${BASH_REMATCH[1]}]"
         fi
     fi
 
@@ -153,11 +153,11 @@ _set_git_prompt() {
     fi
 
     if [ -n "$staged_status" ]; then
-        prompt_str+=" %[${staged_status}]"
+        prompt_str+=" ${staged_status}"
     fi
 
     if [ -n "$working_status" ]; then
-        prompt_str+=" *[${working_status}]"
+        prompt_str+=" ${working_status}"
     fi
     prompt_str+="${C_RESET}"
 
