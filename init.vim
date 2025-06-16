@@ -1,7 +1,8 @@
 call plug#begin('~/.config/nvim/plugged')
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'neovim/nvim-lspconfig'
-  Plug 'kosayoda/nvim-lightbulb'
+  Plug 'prabirshrestha/vim-lsp'
+  Plug 'mattn/vim-lsp-settings'
+  Plug 'prabirshrestha/asyncomplete.vim'
+  Plug 'prabirshrestha/asyncomplete-lsp.vim'
   Plug 'junegunn/fzf', {'do': {-> fzf#install()}}
   Plug 'junegunn/fzf.vim'
   Plug 'tpope/vim-fugitive'
