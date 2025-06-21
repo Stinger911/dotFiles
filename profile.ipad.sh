@@ -1,6 +1,6 @@
 alias ll="ls -Al"
-alias vim="nvim"
-alias vi="nvim"
+alias nv="nvim"
+alias vi="vim"
 alias ll='ls -FlAhp'                        # Preferred 'ls' implementation
 alias less='less -SR~'                      # Preferred 'less' implementation
 cd() { builtin cd "$@"; ls -l; }            # Always list directory contents upon 'cd'
