@@ -1,6 +1,7 @@
 #!/bin/bash
 # ANSI color codes
 C_RESET="\[\033[0m\]"
+C_RED="\[\033[0;91m\]"
 C_GREEN="\[\033[0;92m\]"
 C_YELLOW="\[\033[0;93m\]"
 C_CYAN="\[\033[0;96m\]"
@@ -105,6 +106,15 @@ _git_status_info() {
 
 # Main function to set the prompt
 _set_git_prompt() {
+    # Get the return code of the last executed command
+    local return_code=$?
+    local return_code_str=""
+    if [ $return_code -eq 0 ]; then
+        return_code_str="[${C_GREEN}0${C_RESET}]" # Green for success
+    else
+        return_code_str="[${C_RED}${return_code}${C_RESET}]" # Red for failure
+    fi
+
     local username="\u"
     local current_dir="\w" # Full path
     local tilde_based_dir="${current_dir/#$HOME/\~}" # Replace $HOME with ~
@@ -161,7 +171,7 @@ _set_git_prompt() {
     fi
     prompt_str+="${C_RESET}"
 
-    export PS1="${prompt_str}\n${C_GREEN}${C_PROMPT}${C_RESET} " # Add a newline and then the traditional $ or #
+    export PS1="${prompt_str}\n${return_code_str}${C_GREEN}${C_PROMPT}${C_RESET} " # Add a newline and then the traditional $ or #
 }
 
 # Set PROMPT_COMMAND to execute _set_git_prompt before each prompt

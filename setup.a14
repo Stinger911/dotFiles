@@ -2,13 +2,13 @@
 _DIR=$( cd -- "$( dirname -- "${0}" )" &> /dev/null && pwd )
 _WD=$(basename $_DIR)
 
-grep "dl-cdn.alpinelinux.org" /etc/apk/repositories > /dev/null
-if [ "$?" = "1" ]; then
-cat <<EOR >> /etc/apk/repositories
-https://dl-cdn.alpinelinux.org/alpine/v3.14/main
-https://dl-cdn.alpinelinux.org/alpine/v3.14/community
-EOR
-fi
+# grep "dl-cdn.alpinelinux.org" /etc/apk/repositories > /dev/null
+# if [ "$?" = "1" ]; then
+# cat <<EOR >> /etc/apk/repositories
+# https://dl-cdn.alpinelinux.org/alpine/v3.14/main
+# https://dl-cdn.alpinelinux.org/alpine/v3.14/community
+# EOR
+# fi
 
 apk update
 apk add git tmux neovim openssh-client python3 bash curl
