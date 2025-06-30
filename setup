@@ -1,30 +1,52 @@
 #!/bin/sh
 _DIR=$( cd -- "$( dirname -- "${0}" )" &> /dev/null && pwd )
 
-apk add git tmux neovim lf openssh-client python3 py3-pip bash curl helix helix-tree-sitter-vendor
+OS_TYPE=""
+if [ "$(uname)" = "Darwin" ]; then
+    OS_TYPE="macos"
+elif grep -qi microsoft /proc/version 2>/dev/null; then
+    OS_TYPE="windows (wsl)"
+elif [ -f /etc/alpine-release ]; then
+    ALPINE_VER=$(cat /etc/alpine-release)
+    OS_TYPE="alpine $ALPINE_VER"
+elif [ -f /etc/os-release ]; then
+    . /etc/os-release
+    if [ "$ID" = "ubuntu" ]; then
+        OS_TYPE="ubuntu $VERSION_ID"
+    else
+        OS_TYPE="$ID $VERSION_ID"
+    fi
+else
+    OS_TYPE="unknown"
+fi
 
-export PATH=$PATH:/root/.local/bin
+echo "Detected OS: $OS_TYPE"
 
-curl -s https://ohmyposh.dev/install.sh | bash -s
-cp $_DIR/spaceship-st.omp.json /root/.cache/oh-my-posh/themes/
-oh-my-posh init bash --config /root/.cache/oh-my-posh/themes/spaceship-st.omp.json
-
-cp /etc/passwd /etc/passwd.bak
-
-cat /etc/passwd | sed -E "s|^root(.*)/bin/sh|root\1/bin/bash|" >/etc/passwd.new
-
-diff /etc/passwd.new /etc/passwd.bak
-
-read -p "apply? [y/n] " ANSW; [ $ANSW = "y" ] && cp /etc/passwd.new /etc/passwd
-
-rm -f /etc/passwd.new /etc/passwd.bak
-
-read -p "Username: " USERNM; echo; scp $USERNM@s2.lab18.net:~/.ssh/id_rsa ~/.ssh/
-
-cp $_DIR/profile.ipad.sh ~/.profile
-
-cp $_DIR/config.toml ~/.config/helix/config.toml
-
-mkdir -p ~/.config/lf
-
-cp $_DIR/lfrc ~/.config/lf/lfrc
+case "$OS_TYPE" in
+    "macos")
+        echo "Installing dependencies for macOS..."
+        . ${_DIR}/setup.macos.sh
+        # brew install git tmux neovim lf openssh python curl helix
+        ;;
+    "windows (wsl)")
+        echo "Installing dependencies for WSL..."
+        . ${_DIR}/setup.wsl.sh
+        # sudo apt update && sudo apt install -y git tmux neovim lf openssh-client python3 curl helix
+        ;;
+    "alpine 3.14"*)
+        echo "Installing dependencies for Alpine Linux..."
+        . ${_DIR}/setup.a14
+        ;;
+    "alpine 3.2"*)
+        echo "Installing dependencies for Alpine Linux..."
+        . ${_DIR}/setup.a22
+        ;;
+    "ubuntu"*)
+        echo "Installing dependencies for Ubuntu..."
+        . ${_DIR}/setup.ubuntu.sh
+        ;;
+    *)
+        echo "Unsupported OS: $OS_TYPE"
+        exit 1
+        ;;
+esac

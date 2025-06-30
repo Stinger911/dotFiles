@@ -1,9 +1,9 @@
-alias ll="ls -Al"
+alias ll="exa -al --git"
 alias nv="nvim"
 alias vi="vim"
-alias ll='ls -FlAhp'                        # Preferred 'ls' implementation
+#alias ll='ls -FlAhp'                       # Preferred 'ls' implementation
 alias less='less -SR~'                      # Preferred 'less' implementation
-cd() { builtin cd "$@"; ls -l; }            # Always list directory contents upon 'cd'
+cd() { builtin cd "$@"; exa -l --git; }     # Always list directory contents upon 'cd'
 alias cd..='cd ../'                         # Go back 1 directory level (for fast typers)
 alias ..='cd ../'                           # Go back 1 directory level
 alias ...='cd ../../'                       # Go back 2 directory levels
@@ -47,5 +47,5 @@ export EDITOR=hx
 export PATH=$PATH:/root/.local/bin
 . /root/.cache/oh-my-posh/init.*.sh
 # load git aliases
-. ./IWD/gitalias.sh
+. ~/IWD/gitalias.sh
 
