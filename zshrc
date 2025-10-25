@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 export LANG="en_US.UTF-8"
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/Stinger/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 export COLORTERM=truecolor
 
 # Set name of the theme to load --- if set to "random", it will
