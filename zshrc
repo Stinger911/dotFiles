@@ -65,7 +65,7 @@ ZSH_THEME="spaceship"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git python npm vscode)
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -77,7 +77,7 @@ bindkey "^F" forward-word
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -225,6 +225,9 @@ PATH="/Library/Frameworks/Python.framework/Versions/3.7/bin:${PATH}"
 PATH="$PATH:/Users/Stinger/.local/bin"
 PATH="$PATH:/opt/homebrew/bin"
 PATH="$PATH:/Applications/Docker.app/Contents/Resources/bin/"
+#If you need to have llvm first in your PATH, run:
+#  echo 'export PATH="/opt/homebrew/opt/llvm/bin:$PATH"' >> ~/.zshrc
+PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 export PATH
 
 # The next line updates PATH for the Google Cloud SDK.
@@ -240,10 +243,12 @@ if [ -f '/Users/Stinger/Work/google-cloud-sdk/completion.zsh.inc' ]; then . '/Us
 #because macOS already provides this software and installing another version in
 #parallel can cause all kinds of trouble.
 
-#If you need to have llvm first in your PATH, run:
-#  echo 'export PATH="/opt/homebrew/opt/llvm/bin:$PATH"' >> ~/.zshrc
-export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 #For compilers to find llvm you may need to set:
 #  export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
 #  export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 export EDITOR=hx
+
+# import local settings if any (PATHs for example)
+if [ -e ~/.profile ]; then
+  . ~/.profile
+fi
