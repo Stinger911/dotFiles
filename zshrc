@@ -121,11 +121,7 @@ alias path='echo -e ${PATH//:/\\n}'         # path:         Echo all executable 
 mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
 trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
 ql () { qlmanage -p "$*" >& /dev/null; }    # ql:           Opens any file in MacOS Quicklook Preview
-alias tx='tmux -u attach || tmux -u new'    # tx:           tmux attach or create new session
 alias winssh='ssh -L 3390:127.0.0.1:33389 stinger@s2.lab18.net'
-alias wincmd='"/Applications/MetaTrader 4.app/Contents/SharedSupport/metatrader4/MetaTrader 4/wine" cmd.exe'
-alias wincmd5='"/Applications/MetaTrader 5.app/Contents/SharedSupport/metatrader5/MetaTrader 5/wine" cmd.exe'
-alias far='/Applications/far2l.app/Contents/MacOS/far2l --tty'
 # ------------------------------------------------------------------
 # | Git Flow Shortcuts                                             |
 # ------------------------------------------------------------------
@@ -161,7 +157,22 @@ alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\
              echo "'$1' is not a valid file"
          fi
     }
-
+tx () {
+  if [ -z $1 ] ; then
+    tmux bind-key F1 copy-mode -u \; attach || tmux bind-key F1 copy-mode -u \; new $@
+  else
+    sn=$1
+    shift
+    tmux has -t $sn
+    rc=$?
+    if [[ $rc != 0 ]]; then
+      tmux bind-key F1 copy-mode -u \; new -s $sn $@
+    else
+      tmux bind-key F1 copy-mode -u \; attach -t $sn
+    fi
+  fi
+}
+    
 lfcd () {
     tmp="$(mktemp)"
     lf -last-dir-path="$tmp" "$@"
